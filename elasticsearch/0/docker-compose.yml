@@ -1,0 +1,13 @@
+elasticsearch:
+  image: elasticsearch:2.3.3
+  restart: always
+  ports:
+   - "9200:9200"
+   - "9300:9300"
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity:host_label: ${hostlabel_key}=${hostlabel_value}
+  volumes:
+   - /var/lib/elasticsearch/data:/usr/share/elasticsearch/data
+  tty: true
+  stdin_open: true
