@@ -8,7 +8,7 @@
       label: "外部端口"
       type: "int"
       required: true
-      default: "3306"
+      default: "8081"
     - variable: storage_path
       description: "存储的路径"
       label: "存储目录"
