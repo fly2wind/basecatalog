@@ -1,0 +1,6 @@
+name: Nexus
+description: |
+  Nexus Repository Manager
+version: 1.0.0
+category: Repository
+maintainer: "ThoughtWorks"

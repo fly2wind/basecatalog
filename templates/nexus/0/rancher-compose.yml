@@ -1,0 +1,17 @@
+.catalog:
+  name: "nexus"
+  version: "1.0.0"
+  description: "Nexus Repository Manager"
+  questions:
+    - variable: public_port
+      description: "访问应用的外部端口"
+      label: "外部端口"
+      type: "int"
+      required: true
+      default: "3306"
+    - variable: storage_path
+      description: "存储的路径"
+      label: "存储目录"
+      type: "string"
+      required: true
+      default: "／var/lib/nexus"

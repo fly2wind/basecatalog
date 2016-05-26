@@ -1,0 +1,11 @@
+nexus:
+  image: baselibrary/nexus:3.0
+  restart: always
+  ports:
+   - ${public_port}:8081
+  labels:
+    io.rancher.container.hostname_override: container_name
+  volumes:
+   - ${storage_path}:/usr/share/nexus/data
+  tty: true
+  stdin_open: true
