@@ -1,7 +1,7 @@
 .catalog:
   name: "ElasticSearch"
   version: "1.0.0"
-  description: "ElasticSearch."
+  description: "ElasticSearch"
   questions:
     - variable: cluster_name
       description: "ElasticSearch集群的名称"
