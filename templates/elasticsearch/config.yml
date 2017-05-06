@@ -1,5 +1,0 @@
-name: ElasticSearch
-description: "分布式可扩展的实时搜索和分析引擎"
-version: 1.0.0
-category: ELK
-maintainer: "ThoughtWorks"
