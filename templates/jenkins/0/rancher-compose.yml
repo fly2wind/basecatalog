@@ -41,10 +41,10 @@ catalog:
           server            = "ldap://ldap.example.com"
           rootDN            = "OU=Enterprise,OU=Principal,DC=corporate,DC=example,DC=com"
           userSearchBase    = "OU=Employees"
-          userSearchFilter  = ""
+          userSearchFilter  = "sAMAccountName={0}"
           groupSearchBase   = "OU=Groups"
-          groupSearchFilter = ""
-          groupSearchAttr   = ""
+          groupSearchFilter = "(& (cn={0}) (objectclass=group) )"
+          groupSearchAttr   = "memberOf"
           managerDN         = "CN=username,OU=Employees,OU=Enterprise,OU=Principal,DC=corporate,DC=example,DC=com"
           managerPassword   = "password"
         }
