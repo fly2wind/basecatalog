@@ -1,4 +1,4 @@
-name: enkins
+name: jenkins
 description: jenkins server (LTS)
 version: 1.0
 category: Continuous Integration
