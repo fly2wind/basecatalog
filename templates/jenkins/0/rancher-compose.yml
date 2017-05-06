@@ -11,13 +11,13 @@ catalog:
     required: true
   - variable: "volume_work"
     description: "Work volume to save jenkins data"
-    label: "Work volume:"
+    label: "Work Volume:"
     required: true
     default: "/var/lib/jenkins"
     type: "string"
   - variable: "plugins"
     type: "multiline"
-    label: "List of Plugins"
+    label: "Plugins"
     description: List of plugins in the format <plugin_name>[:<version>] one entry per line.
     default: |
       git
@@ -32,8 +32,8 @@ catalog:
       swarm
   - variable: "config"
     type: "multiline"
-    label: "Config"
-    description: "jenkins config."
+    label: "Configurations"
+    description: "Configurations of jenkins in the groovy format."
     default: |
       security {
         ldap {
