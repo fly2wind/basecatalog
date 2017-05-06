@@ -13,39 +13,45 @@ catalog:
     description: "Work volume to save jenkins data"
     label: "Work volume:"
     required: true
-    default: "/var/lib/docker/jenkins"
+    default: "/var/lib/jenkins"
     type: "string"
   - variable: "plugins"
     type: "multiline"
     label: "List of Plugins"
     description: List of plugins in the format <plugin_name>[:<version>] one entry per line.
     default: |
-      credentials
       git
-      greenballs
-      plain-credentials
-      scm-api
-      ssh-credentials
-      ssh-slaves
+      subversion
+      workflow-aggregator
+      dashboard-view
+      cloudbees-folder
+      token-macro
+      simple-theme
+      docker
+      ldap
       swarm
   - variable: "config"
     type: "multiline"
     label: "Config"
     description: "jenkins config."
     default: |
-      ldap {
-        enabled           = false
-        server            = "ldap://1.2.3.4"
-        rootDN            = "dc=foo,dc=com"
-        userSearchBase    = "cn=users,cn=accounts"
-        userSearchFilter  = ""
-        groupSearchBase   = ""
-        groupSearchFilter = ""
-        groupSearchAttr   = ""
-        managerDN         = "uid=serviceaccount,cn=users,cn=accounts,dc=foo,dc=com"
-        managerPassword   = "password"
+      security {
+        ldap {
+          enabled           = false
+          server            = "ldap://ldap.example.com"
+          rootDN            = "OU=Enterprise,OU=Principal,DC=corporate,DC=example,DC=com"
+          userSearchBase    = "OU=Employees"
+          userSearchFilter  = ""
+          groupSearchBase   = "OU=Groups"
+          groupSearchFilter = ""
+          groupSearchAttr   = ""
+          managerDN         = "CN=username,OU=Employees,OU=Enterprise,OU=Principal,DC=corporate,DC=example,DC=com"
+          managerPassword   = "password"
+        }
       }
 jenkins:
   metadata:
     plugins: |
       ${plugins}
+    config: |
+      ${config}
