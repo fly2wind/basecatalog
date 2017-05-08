@@ -29,6 +29,7 @@
       simple-theme
       docker
       ldap
+      locale
       swarm
   - variable: "config"
     type: "multiline"
