@@ -46,7 +46,7 @@
           groupSearchFilter = "(& (cn={0}) (objectclass=group) )"
           groupSearchAttr   = "memberOf"
           managerDN         = "CN=username,OU=Employees,OU=Enterprise,OU=Principal,DC=corporate,DC=example,DC=com"
-          managerPassword   = "ecrypt password by SHA"
+          managerPassword   = "ecrypt password by AES"
         }
       }
 jenkins:
