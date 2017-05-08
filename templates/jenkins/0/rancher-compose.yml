@@ -46,7 +46,7 @@
           "groupSearchFilter":"(& (cn={0}) (objectclass=group) )",
           "groupSearchAttr":"memberOf",
           "managerDN":"CN=username,DC=exapmle,DC=com",
-          "managerPassword":"password by jenkins"
+          "managerPassword":"base64 password"
         }
       },
       "credentials":[
