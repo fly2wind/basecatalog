@@ -1,4 +1,4 @@
 name: jenkins
-description: jenkins server (LTS)
-version: 1.0
+description: jenkins server (ThoughtWorks)
+version: 1.0-rancher1
 category: Continuous Integration

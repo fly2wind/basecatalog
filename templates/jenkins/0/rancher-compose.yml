@@ -1,6 +1,6 @@
 catalog:
   name: jenkins
-  version: 1.0
+  version: 1.0-rancher1
   description: jenkins server.
   questions:
   - variable: "PORT"
@@ -37,7 +37,6 @@ catalog:
     default: |
       security {
         ldap {
-          enabled           = false
           server            = "ldap://ldap.example.com"
           rootDN            = "OU=Enterprise,OU=Principal,DC=corporate,DC=example,DC=com"
           userSearchBase    = "OU=Employees"
