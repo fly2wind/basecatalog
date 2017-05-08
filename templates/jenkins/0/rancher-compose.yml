@@ -39,13 +39,13 @@
         ldap {
           enabled           = false
           server            = "ldap://ldap.example.com"
-          rootDN            = "OU=Enterprise,OU=Principal,DC=corporate,DC=example,DC=com"
+          rootDN            = "OU=Enterprise,OU=Principal,DC=corporate,DC=thoughtworks,DC=com"
           userSearchBase    = "OU=Employees"
           userSearchFilter  = "sAMAccountName={0}"
           groupSearchBase   = "OU=Groups"
           groupSearchFilter = "(& (cn={0}) (objectclass=group) )"
           groupSearchAttr   = "memberOf"
-          managerDN         = "CN=username,OU=Employees,OU=Enterprise,OU=Principal,DC=corporate,DC=example,DC=com"
+          managerDN         = "CN=username,OU=Employees,OU=Enterprise,OU=Principal,DC=corporate,DC=thoughtworks,DC=com"
           managerPassword   = "ecrypt password by AES"
         }
       }
