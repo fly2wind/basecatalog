@@ -53,7 +53,7 @@
       {
         "id":"jenkins-slave-password",
         "description":"Jenkis Slave with Password Configuration",
-        "username":"jenkins",
+        "username":"root",
         "password":"jenkins"
       }
     ],
@@ -74,7 +74,7 @@
               "dockerCommand":"/usr/sbin/sshd -D",
               "volumesString":"/var/run/docker.sock:/var/run/docker.sock",
               "volumesFromString":"",
-              "environmentsString":"",
+              "environmentsString":"SSH_PASS=jenkins",
               "lxcConfString":"",
               "hostname":"",
               "memoryLimit":null,
