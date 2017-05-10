@@ -31,7 +31,6 @@
       ldap
       locale
       swarm
-      blueocean
   - variable: "config"
     type: "multiline"
     label: "Configurations"
