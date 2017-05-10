@@ -57,25 +57,24 @@
           "password":"jenkins"
         }
       ],
-      "cloud":[
-        {
+      "cloud":{
           "docker":{
             "name":"docker",
             "severUrl":"unix:///var/run/docker.sock",
-            "containerCapStr":"50",
+            "containerCap":"50",
             "connectTimeout":5,
             "readTimeout":15,
             "credentialsId":"",
             "templates":[
               {
                 "image":"baselibrary/jenkins-slave:1.9",
-                "dnsString":"",
+                "dns":"",
                 "network":"",
-                "dockerCommand":"/usr/sbin/sshd -D",
-                "volumesString":"/var/run/docker.sock:/var/run/docker.sock",
-                "volumesFromString":"",
-                "environmentsString":"SSH_PASS=jenkins",
-                "lxcConfString":"",
+                "command":"/usr/sbin/sshd -D",
+                "volumes":"/var/run/docker.sock:/var/run/docker.sock",
+                "volumesFrom":"",
+                "environments":"SSH_PASS=jenkins",
+                "lxcConf":"",
                 "hostname":"",
                 "memoryLimit":null,
                 "memorySwap":null,
@@ -84,10 +83,10 @@
                 "bindAllPorts":false,
                 "privileged":false,
                 "tty":false,
-                "labelString":"mono_slave",
+                "label":"mono_slave",
                 "remoteFs":"/var/lib/jenkins",
                 "remoteFsMapping":"/var/lib/jenkins",
-                "instanceCapStr":"10",
+                "instanceCap":"10",
                 "numExecutors":1,
                 "removeVolume":false,
                 "pullStrategy":"Pull once and update latest"
@@ -95,7 +94,6 @@
             ]
           }
         }
-      ]
 jenkins:
   metadata:
     plugins: |
