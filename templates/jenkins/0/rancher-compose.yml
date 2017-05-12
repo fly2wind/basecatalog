@@ -36,28 +36,29 @@
     label: "Configurations"
     description: "Configurations of jenkins in the json format."
     default: |
-      "security":{
-        "ldap":{
-          "server":"ldap://ldap.exapmle.com",
-          "rootDN":"OU=Enterprise,OU=Principal,DC=corporate,DC=exapmle,DC=com",
-          "userSearchBase":"OU=Users",
-          "userSearchFilter":"sAMAccountName={0}",
-          "groupSearchBase":"OU=Groups",
-          "groupSearchFilter":"(& (cn={0}) (objectclass=group) )",
-          "groupSearchAttr":"memberOf",
-          "managerDN":"CN=username,DC=exapmle,DC=com",
-          "managerPassword":"base64 password"
-        }
-      },
-      "credentials":[
-        {
-          "id":"jenkins-slave-password",
-          "description":"Jenkis Slave with Password Configuration",
-          "username":"root",
-          "password":"jenkins"
-        }
-      ],
-      "cloud":{
+      {
+        "security":{
+          "ldap":{
+            "server":"ldap://ldap.exapmle.com",
+            "rootDN":"OU=Enterprise,OU=Principal,DC=corporate,DC=exapmle,DC=com",
+            "userSearchBase":"OU=Users",
+            "userSearchFilter":"sAMAccountName={0}",
+            "groupSearchBase":"OU=Groups",
+            "groupSearchFilter":"(& (cn={0}) (objectclass=group) )",
+            "groupSearchAttr":"memberOf",
+            "managerDN":"CN=username,DC=exapmle,DC=com",
+            "managerPassword":"base64 password"
+          }
+        },
+        "credentials":[
+          {
+            "id":"jenkins-slave-password",
+            "description":"Jenkis Slave with Password Configuration",
+            "username":"root",
+            "password":"jenkins"
+          }
+        ],
+        "cloud":{
           "docker":{
             "name":"docker",
             "severUrl":"unix:///var/run/docker.sock",
@@ -94,6 +95,7 @@
             ]
           }
         }
+      }
 jenkins:
   metadata:
     plugins: |
