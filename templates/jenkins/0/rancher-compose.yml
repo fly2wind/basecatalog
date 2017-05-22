@@ -7,7 +7,7 @@
     type: "string"
     label: "Site URL"
     description: "Which url should Jenkins use?"
-    default: 8080
+    default: "http://127.0.0.1"
     required: false
   - variable: "PORT"
     type: "int"
