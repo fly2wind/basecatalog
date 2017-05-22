@@ -3,6 +3,12 @@
   version: 1.0-rancher1
   description: "jenkins server."
   questions:
+  - variable: "URL"
+    type: "string"
+    label: "Site URL"
+    description: "Which url should Jenkins use?"
+    default: 8080
+    required: false
   - variable: "PORT"
     type: "int"
     label: "Port Number"
