@@ -3,7 +3,7 @@ jenkins:
   ports:
     - "${PORT}:8080"
   labels:
-    io.rancher.scheduler.affinity: host_label: env=ci
+    io.rancher.scheduler.affinity: host_label: host.type=ci
     io.rancher.sidekicks: jenkins-config,jenkins-volume
     io.rancher.container.hostname_override: container_name
   volumes_from:
