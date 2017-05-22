@@ -13,6 +13,7 @@ jenkins-config:
   image: baselibrary/jenkins-config:1.0
 jenkins-volume:
   image: "busybox"
+  volume_driver: ${volume_driver}
   volumes:
     - ${volume_work}:/var/lib/jenkins
   labels:
