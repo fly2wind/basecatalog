@@ -1,4 +1,4 @@
-name: jira
-description: "jira server (ThoughtWorks)"
-version: 7.3.6
-category: Continuous Integration
+name: atlassian
+description: "atlassian server (ThoughtWorks)"
+version: 1.0.0
+category: Collaboration

@@ -1,39 +1,29 @@
 .catalog:
-  name: "jira"
-  version: "7.3.6"
+  name: "atlassian"
+  version: "1.0.0"
   description: "Create, organize, and discuss work with your team"
   questions:
-    - variable: "PORT"
-      type: "int"
-      label: "Port Number"
-      description: "Which port should Jira listen on?"
-      default: 8080
+    - variable: JIRA_HOST
+      label: "Jira Host"
+      description: "Hostname of Jira instance reachable from external"
+      type: string
       required: true
-    - variable: "jira_home"
-      label: "Jira home directory"
-      description: "The location to mount the Jira home directory on"
+      default: "jira.example.com"
+
+    - variable: CONFLUENCE_HOST
+      label: "Confluence Host"
+      description: "Hostname of Confluence instance reachable from external"
+      type: string
+      required: true
+      default: "confluence.example.com"
+    - variable: "atlassian_home"
+      label: "Atlassian home directory"
+      description: "The location to mount the Atlassian home directory on"
       type: "string"
-      default: "/var/lib/jira"
+      default: "/var/lib/atlassian"
       required: true
-    - variable: "jira_db_username"
-      label: "Jira database username"
-      description: "The username for Jira database"
-      type: "string"
-      default: jira
-      required: true
-    - variable: "jira_db_password"
-      label: "Jira database password"
-      description: "The password for Jira database"
-      type: "password"
-      default: jira
-      required: true
-jira:
-  scale: 1
-  health_check:
-    port: 8080
-    interval: 2000
-    initializing_timeout: 60000
-    unhealthy_threshold: 3
-    strategy: recreate
-    healthy_threshold: 2
-    response_timeout: 2000
+    - variable: "database_link"
+      label: "Database"
+      description: "Service link to the database. This will be mapped to the container as 'database'"
+      type: "service"
+      required: false

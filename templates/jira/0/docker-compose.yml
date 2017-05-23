@@ -1,38 +1,41 @@
-jira:
-  image: blacklabelops/jira:7.3.6
+lb:
+  image: rancher/load-balancer-service
   ports:
-    - "${PORT}:8080"
+    - 80:80
+  labels:
+    io.rancher.loadbalancer.target.jira: ${JIRA_HOST}=8080
+    io.rancher.loadbalancer.target.confluence: ${CONFLUENCE_HOST}=8090
+  links:
+    - jira:jira
+    - confluence:confluence
+
+jira:
+  image: cptactionhank/atlassian-jira
   labels:
     io.rancher.sidekicks: jira-volume
-  environment:
-    - 'JIRA_DATABASE_URL=mysql://${jira_db_username}@mysql/jira'
-    - 'JIRA_DB_PASSWORD=${jira_db_password}'
-  links:
-    - mysql:mysql
   volumes_from:
     - jira-volume
+  external_links:
+   - ${database_link}:database
+confluence:
+  image: cptactionhank/atlassian-confluence:6.1.3
+  labels:
+    io.rancher.sidekicks: confluence-volume
+  volumes_from:
+    - confluence-volume
+  external_links:
+    - ${database_link}:database
 jira-volume:
   image: "busybox"
   volumes:
-    - ${jira_home}:/var/atlassian/jira
+    - ${atlassian_home}/jira:/var/atlassian/jira
   labels:
     io.rancher.container.start_once: true
-  entrypoint: ["chown", "-R", "1000:1000", "/var/atlassian/jira"]
-mysql:
-  image: mysql:5.6
-  labels:
-    io.rancher.sidekicks: mysql-volume
-  environment:
-    - 'MYSQL_ROOT_PASSWORD=${jira_db_password}'
-    - 'MYSQL_DATABASE=jira'
-    - 'MYSQL_USER=${jira_db_username}'
-    - 'MYSQL_PASSWORD=${jira_db_password}'
-  volumes_from:
-    - mysql-volume
-mysql-volume:
+  entrypoint: ["chown", "-R", "700:700", "/var/atlassian/jira"]
+confluence-volume:
   image: "busybox"
   volumes:
-    - ${jira_home}/database:/var/lib/mysql
+    - ${atlassian_home}/confluence:/var/atlassian/confluence
   labels:
     io.rancher.container.start_once: true
-  entrypoint: ["chown", "-R", "1000:1000", "/var/lib/mysql"]
+  entrypoint: ["chown", "-R", "700:700", "/var/atlassian/confluence"]
