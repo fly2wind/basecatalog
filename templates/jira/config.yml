@@ -1,0 +1,4 @@
+name: jira
+description: "jira server (ThoughtWorks)"
+version: 1.0-rancher1
+category: Continuous Integration

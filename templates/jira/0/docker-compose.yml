@@ -1,0 +1,21 @@
+jira:
+  image: blacklabelops/jira:7.3.6
+  ports:
+    - "${PORT}:8080"
+  labels:
+    io.rancher.sidekicks: jenkins-config,jenkins-volume
+    io.rancher.container.hostname_override: container_name
+  environment:
+    - 'JIRA_DATABASE_URL=mysql://${jira_db_username}@jira-database/jira'
+    - 'JIRA_DB_PASSWORD=${jira_db_password}'
+  links:
+    - jira-database:jira-database
+  volumes:
+    - ${jira_home}:/var/atlassian/jira
+jira-database:
+  image: mysql:5.6
+  environment:
+    - 'MYSQL_ROOT_PASSWORD=${jira_db_password}'
+    - 'MYSQL_DATABASE=jira'
+    - 'MYSQL_USER=${jira_db_username}'
+    - 'MYSQL_PASSWORD=${jira_db_password}'
