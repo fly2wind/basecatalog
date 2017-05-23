@@ -4,21 +4,13 @@ jira:
     - "${PORT}:8080"
   labels:
     io.rancher.sidekicks: jira-volume
-    io.rancher.container.hostname_override: container_name
   environment:
-    - 'JIRA_DATABASE_URL=mysql://${jira_db_username}@jira-database/jira'
+    - 'JIRA_DATABASE_URL=mysql://${jira_db_username}@mysql/jira'
     - 'JIRA_DB_PASSWORD=${jira_db_password}'
   links:
-    - jira-database:jira-database
+    - mysql:mysql
   volumes_from:
     - jira-volume
-jira-database:
-  image: mysql:5.6
-  environment:
-    - 'MYSQL_ROOT_PASSWORD=${jira_db_password}'
-    - 'MYSQL_DATABASE=jira'
-    - 'MYSQL_USER=${jira_db_username}'
-    - 'MYSQL_PASSWORD=${jira_db_password}'
 jira-volume:
   image: "busybox"
   volumes:
@@ -26,3 +18,21 @@ jira-volume:
   labels:
     io.rancher.container.start_once: true
   entrypoint: ["chown", "-R", "1000:1000", "/var/atlassian/jira"]
+mysql:
+  image: mysql:5.6
+  labels:
+    io.rancher.sidekicks: mysql-volume
+  environment:
+    - 'MYSQL_ROOT_PASSWORD=${jira_db_password}'
+    - 'MYSQL_DATABASE=jira'
+    - 'MYSQL_USER=${jira_db_username}'
+    - 'MYSQL_PASSWORD=${jira_db_password}'
+  volumes_from:
+    - mysql-volume
+mysql-volume:
+  image: "busybox"
+  volumes:
+    - ${jira_home}/database:/var/lib/mysql
+  labels:
+    io.rancher.container.start_once: true
+  entrypoint: ["chown", "-R", "1000:1000", "/var/lib/mysql"]
