@@ -13,6 +13,7 @@
       label: "Jira home directory"
       description: "The location to mount the Jira home directory on"
       type: "string"
+      default: "/var/lib/jira"
       required: true
     - variable: "jira_db_username"
       label: "Jira database username"

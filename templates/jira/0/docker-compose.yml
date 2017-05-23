@@ -3,7 +3,6 @@ jira:
   ports:
     - "${PORT}:8080"
   labels:
-    io.rancher.sidekicks: jenkins-config,jenkins-volume
     io.rancher.container.hostname_override: container_name
   environment:
     - 'JIRA_DATABASE_URL=mysql://${jira_db_username}@jira-database/jira'
