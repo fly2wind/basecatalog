@@ -31,11 +31,11 @@ jira-volume:
     - ${atlassian_home}/jira:/var/atlassian/jira
   labels:
     io.rancher.container.start_once: true
-  entrypoint: ["chown", "-R", "1000:1000", "/var/atlassian/jira"]
+  entrypoint: ["chown", "-R", "1000:700", "/var/atlassian/jira"]
 confluence-volume:
   image: "busybox"
   volumes:
     - ${atlassian_home}/confluence:/var/atlassian/confluence
   labels:
     io.rancher.container.start_once: true
-  entrypoint: ["chown", "-R", "1000:1000", "/var/atlassian/confluence"]
+  entrypoint: ["chown", "-R", "1000:700", "/var/atlassian/confluence"]
