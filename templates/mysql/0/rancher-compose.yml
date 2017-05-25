@@ -8,7 +8,7 @@
       label: "Port Number"
       description: "Which port should mysql listen on?"
       default: 3306
-    required: true
+      required: true
     - variable: "mysql_root_password"
       type: string
       required: true
