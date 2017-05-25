@@ -1,0 +1,4 @@
+name: mysql
+description: "mysql server (ThoughtWorks)"
+version: 5.7
+category: Database
