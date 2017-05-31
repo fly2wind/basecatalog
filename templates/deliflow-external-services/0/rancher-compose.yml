@@ -1,0 +1,23 @@
+.catalog:
+  name: deliflow-external-services
+  version: 1.0.0
+  description: "Deliflow External Services"
+  questions:
+  - variable: volume_driver
+    label: "Volume Driver:"
+    description: "数据存储驱动"
+    required: true
+    default: "local"
+    type: "string"
+  - variable: volume_work
+    label: "Volume Path:"
+    description: "数据存储路径"
+    required: true
+    default: "/var/lib/sonarqube"
+    type: "string"
+  - variable: deliflow_password
+    label: "Deliflow Password"
+    description: "默认密码"
+    required: true
+    default: "DeliFlow@123"
+    type: password
