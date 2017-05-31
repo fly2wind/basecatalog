@@ -53,7 +53,7 @@ services:
     labels:
       io.rancher.container.start_once: true
     volumes:
-      - ${volume_work}:/var/opt/jfrog/artifactory
+      - ${volume_work}/artifactory:/var/opt/jfrog/artifactory
     volume_driver: ${volume_driver}
     command:
       - /bin/true
