@@ -1,24 +1,68 @@
 version: '2'
 services:
-  sonarqube:
+  deliflow-artifactory-server:
+    image: docker.bintray.io/jfrog/artifactory-oss:5.3.1
+    labels:
+      io.rancher.sidekicks: artifactory-data
+      io.ranhcer.container.hostname_override: container_name
+    ports:
+      - "8081:8081"
+    environment:
+      - EXTRA_JAVA_OPTIONS=-Xmx4g
+    volumes_from:
+      - artifactory-data
+  deliflow-sonarqube-server:
     image: sonarqube:6.3.1
     labels:
       io.rancher.sidekicks: sonarqube-data
       io.ranhcer.container.hostname_override: container_name
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:mysql://database/sonarqube?useUnicode=true&characterEncoding=utf8
+      - SONARQUBE_JDBC_USERNAME=sonarqube
+      - SONARQUBE_JDBC_PASSWORD=${deliflow_password}
     volumes_from:
       - sonarqube-data
+    links:
+      - deliflow-mysql-server:database
+  deliflow-mysql-server:
+    image: mysql:5.7
+    labels:
+      io.rancher.sidekicks: mysql-data
+      io.ranhcer.container.hostname_override: container_name
+    volumes_from:
+      - mysql-data
     environment:
-      SONARQUBE_JDBC_URL: jdbc:${jdbc_driver}://database/${jdbc_databse}?useUnicode=true&characterEncoding=utf8
-      SONARQUBE_JDBC_USERNAME: ${jdbc_username}
-      SONARQUBE_JDBC_PASSWORD: ${jdbc_password}
-    external_links:
-      - ${database_link}:database
+      - MYSQL_ROOT_PASSWORD=${deliflow_password}
+      - MYSQL_DATABASE=sonarqube
+      - MYSQL_USER=sonarqube
+      - MYSQL_PASSWORD=${deliflow_password}
   sonarqube-data:
     image: sonarqube:6.3.1
     labels:
       io.rancher.container.start_once: true
     volumes:
-      - ${volume_work}:/opt/sonarqube
+      - ${volume_work}/sonarqube:/opt/sonarqube
+    volume_driver: ${volume_driver}
+    command:
+      - /bin/true
+  artifactory-data:
+    image: docker.bintray.io/jfrog/artifactory-oss:5.3.1
+    labels:
+      io.rancher.container.start_once: true
+    volumes:
+      - ${volume_work}:/var/opt/jfrog/artifactory
+    volume_driver: ${volume_driver}
+    command:
+      - /bin/true
+  mysql-data:
+    image: mysql:5.7
+    labels:
+      io.rancher.container.start_once: true
+    volumes:
+      - ${volume_work}/mysql:/var/lib/mysql
     volume_driver: ${volume_driver}
     command:
       - /bin/true
