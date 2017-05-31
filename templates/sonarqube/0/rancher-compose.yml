@@ -1,0 +1,55 @@
+.catalog:
+  name: sonarqube
+  version: 6.3.1
+  description: "SonarQube is a open source quality management platform."
+  questions:
+  - variable: PORT
+    type: "int"
+    label: "Port Number"
+    description: "监听端口"
+    default: 9000
+    required: true
+  - variable: volume_driver
+    label: "Volume Driver:"
+    description: "数据存储驱动"
+    required: true
+    default: "local"
+    type: "string"
+  - variable: volume_work
+    label: "Volume Path:"
+    description: "数据存储路径"
+    required: true
+    default: "/var/lib/sonarqube"
+    type: "string"
+  - variable: database_link
+    label: "Database Link"
+    description: "数据库链接"
+    type: "service"
+    required: false
+  - variable: jdbc_driver
+    label: "Database Type"
+    description: "数据库类型"
+    required: true
+    default: none
+    type: enum
+    options:
+      - mysql
+      - postgresql
+  - variable: jdbc_databse
+    label: "Database Schema"
+    description: "数据库库名"
+    required: true
+    default: sonar
+    type: string
+  - variable: jdbc_username
+    label: "Database Username"
+    description: "数据库用户名"
+    required: true
+    default: sonar
+    type: string
+  - variable: jdbc_username
+    label: "Database Username"
+    description: "数据库用户名"
+    required: true
+    default: sonar
+    type: password

@@ -1,0 +1,24 @@
+version: '2'
+services:
+  sonarqube:
+    image: sonarqube:6.3.1
+    labels:
+      io.rancher.sidekicks: sonarqube-data
+      io.ranhcer.container.hostname_override: container_name
+    volumes_from:
+      - sonarqube-data
+    environment:
+      SONARQUBE_JDBC_URL: jdbc:${jdbc_driver}://database/${jdbc_databse}?useUnicode=true&characterEncoding=utf8
+      SONARQUBE_JDBC_USERNAME: ${jdbc_username}
+      SONARQUBE_JDBC_PASSWORD: ${jdbc_password}
+    external_links:
+      - ${database_link}:database
+  sonarqube-data:
+    image: sonarqube:6.3.1
+    labels:
+      io.rancher.container.start_once: true
+    volumes:
+      - ${volume_work}:/opt/sonarqube
+    volume_driver: ${volume_driver}
+    command:
+      - /bin/true
