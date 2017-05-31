@@ -39,21 +39,21 @@ services:
       - MYSQL_DATABASE=sonarqube
       - MYSQL_USER=sonarqube
       - MYSQL_PASSWORD=${deliflow_password}
-  sonarqube-data:
-    image: sonarqube:6.3.1
-    labels:
-      io.rancher.container.start_once: true
-    volumes:
-      - ${volume_work}/sonarqube:/opt/sonarqube
-    volume_driver: ${volume_driver}
-    command:
-      - /bin/true
   artifactory-data:
     image: docker.bintray.io/jfrog/artifactory-oss:5.3.1
     labels:
       io.rancher.container.start_once: true
     volumes:
       - ${volume_work}/artifactory:/var/opt/jfrog/artifactory
+    volume_driver: ${volume_driver}
+    command:
+      - /bin/true
+  sonarqube-data:
+    image: sonarqube:6.3.1
+    labels:
+      io.rancher.container.start_once: true
+    volumes:
+      - ${volume_work}/sonarqube:/opt/sonarqube
     volume_driver: ${volume_driver}
     command:
       - /bin/true

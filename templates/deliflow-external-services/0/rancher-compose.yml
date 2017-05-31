@@ -13,7 +13,7 @@
     label: "Volume Path:"
     description: "数据存储路径"
     required: true
-    default: "/var/lib/sonarqube"
+    default: "/var/lib/deliflow"
     type: "string"
   - variable: deliflow_password
     label: "Deliflow Password"
