@@ -1,6 +1,6 @@
 .catalog:
   name: deliflow-external-services
-  version: 1.0.0
+  version: 1.0.0-rancher2
   description: "Deliflow External Services"
   questions:
   - variable: volume_driver

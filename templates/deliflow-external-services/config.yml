@@ -1,4 +1,4 @@
 name: deliflow-external-services
 description: Deliflow External Services
-version: 1.0.0
+version: 1.0.0-rancher2
 category: Continuous Integration
