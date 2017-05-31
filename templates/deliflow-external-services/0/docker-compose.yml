@@ -32,20 +32,20 @@ services:
     labels:
       io.rancher.sidekicks: mysql-data
       io.ranhcer.container.hostname_override: container_name
-    volumes_from:
-      - mysql-data
     environment:
       - MYSQL_ROOT_PASSWORD=${deliflow_password}
       - MYSQL_DATABASE=sonarqube
       - MYSQL_USER=sonarqube
       - MYSQL_PASSWORD=${deliflow_password}
+    volumes_from:
+      - mysql-data
   artifactory-data:
     image: docker.bintray.io/jfrog/artifactory-oss:5.3.1
     labels:
       io.rancher.container.start_once: true
     volumes:
-      - ${volume_work}/artifactory:/var/opt/jfrog/artifactory
-    volume_driver: ${volume_driver}
+      - ${deliflow_volume_work}/artifactory:/var/opt/jfrog/artifactory
+    volume_driver: ${deliflow_volume_driver}
     command:
       - /bin/true
   sonarqube-data:
@@ -53,8 +53,8 @@ services:
     labels:
       io.rancher.container.start_once: true
     volumes:
-      - ${volume_work}/sonarqube:/opt/sonarqube
-    volume_driver: ${volume_driver}
+      - ${deliflow_volume_work}/sonarqube:/opt/sonarqube
+    volume_driver: ${deliflow_volume_driver}
     command:
       - /bin/true
   mysql-data:
@@ -62,7 +62,7 @@ services:
     labels:
       io.rancher.container.start_once: true
     volumes:
-      - ${volume_work}/mysql:/var/lib/mysql
-    volume_driver: ${volume_driver}
+      - ${deliflow_volume_work}/mysql:/var/lib/mysql
+    volume_driver: ${deliflow_volume_driver}
     command:
       - /bin/true
