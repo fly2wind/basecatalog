@@ -19,7 +19,7 @@ services:
     labels:
       io.rancher.container.start_once: true
     volumes:
-      - ${volume_work}/ldap/data:/var/lib/ldap
+      - ${volume_work}/ldap:/var/lib/ldap
     volume_driver: ${volume_driver}
     entrypoint: ["chown", "-R", "1000:1000", "/var/lib/ldap"]
   deliflow-mongo-server:
@@ -45,7 +45,6 @@ services:
       - ${volume_work}/mongo:/data/db
     volume_driver: ${volume_driver}
     entrypoint: ["chown", "-R", "1000:1000", "/data/db"]
-
   deliflow-rabbitmq-server:
     image: rabbitmq:3.6
     labels:
