@@ -17,7 +17,7 @@ services:
     links:
       - artifactory-data:database
   artifactory-data:
-    image: postgres:9.6
+    image: postgres:9.4
     labels:
       io.ranhcer.container.hostname_override: container_name
     volumes:
@@ -52,7 +52,7 @@ services:
     links:
       - sonarqube-data:database
   sonarqube-data:
-    image: postgres:9.6
+    image: postgres:9.4
     labels:
       io.ranhcer.container.hostname_override: container_name
     volumes:
