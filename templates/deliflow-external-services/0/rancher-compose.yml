@@ -7,7 +7,7 @@
     label: "Organisation:"
     description: "deliflow organisation"
     required: true
-    default: "DeliFlow"
+    default: "deliflow"
     type: "string"
   - variable: "DELIFLOW_DOMAIN"
     label: "Domain:"
@@ -19,13 +19,13 @@
     label: "Deliflow Password"
     description: "Deliflow Password"
     required: true
-    default: "DeliFlow@123"
+    default: "deliflow"
     type: password
   - variable: "DELIFLOW_AGENTKEY"
     label: "Agent key"
     description: "Key to use for auto registration agent"
     required: true
-    default: "DeliFlow@123"
+    default: "deliflow"
     type: "password"
   - variable: volume_driver
     label: "Volume Driver:"
