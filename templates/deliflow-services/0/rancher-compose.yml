@@ -1,0 +1,29 @@
+.catalog:
+  name: deliflow-services
+  version: 1.0.0-rancher2
+  description: "Deliflow Services"
+  questions:
+  - variable: "DELIFLOW_CAS_DOMIAN"
+    label: "CAS Domain:"
+    description: "deliflow cas domain"
+    required: true
+    default: "cas.twleansw.com"
+    type: "string"
+  - variable: "DELIFLOW_UI_DOMIAN"
+    label: "UI Domain:"
+    description: "deliflow ui domain"
+    required: true
+    default: "ui.deliflow.com"
+    type: "string"
+  - variable: "DELIFLOW_LDAP_HOST"
+    label: "LDAP HOST:"
+    description: "deliflow ldap service"
+    required: true
+    default: "deliflow-external-services/deliflow-ldap-server"
+    type: service
+  - variable: "docker_image_tag"
+    label: "Docker Image Tag:"
+    description: "Docker Image Tag : dev/rc/release."
+    required: true
+    default: "dev"
+    type: "string"

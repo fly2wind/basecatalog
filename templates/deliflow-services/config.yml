@@ -1,0 +1,4 @@
+name: deliflow-services
+description: Deliflow Services
+version: 1.0.0-rancher2
+category: Continuous Integration

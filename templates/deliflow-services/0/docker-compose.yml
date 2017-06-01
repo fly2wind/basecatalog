@@ -1,0 +1,13 @@
+version: '2'
+services:
+  deliflow-cas-service:
+    image: reg.dev.twleansw.com/leansw/cas-service:${docker_image_tag}
+    labels:
+      io.ranhcer.container.hostname_override: container_name
+    ports:
+      - "8443:8443"
+      - "9080:9080"
+    environment:
+      - HOST_NAME=${DELIFLOW_CAS_DOMIAN}
+      - SERVER_NAME=https://${DELIFLOW_DOMAIN}:8443
+      - LDAP_URL=ldap://${DELIFLOW_CAS_DOMIAN}:389
