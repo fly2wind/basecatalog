@@ -1,5 +1,27 @@
 version: '2'
 services:
+  deliflow-ldap-server:
+    image: osixia/openldap:1.1.8
+    labels:
+      io.rancher.sidekicks: ldap-volume
+      io.ranhcer.container.hostname_override: container_name
+    ports:
+      - "389:389"
+      - "636:636"
+    environment:
+      - LDAP_ORGANISATION=${DELIFLOW_ORGANISATION}
+      - LDAP_DOMAIN=${DELIFLOW_DOMAIN}
+      - LDAP_ADMIN_PASSWORD=${DELIFLOW_PASSWORD}
+    volumes_from:
+      - ldap-volume
+  ldap-volume:
+    image: busybox
+    labels:
+      io.rancher.container.start_once: true
+    volumes:
+      - ${volume_work}/ldap/data:/var/lib/ldap
+    volume_driver: ${volume_driver}
+    entrypoint: ["chown", "-R", "1000:1000", "/var/lib/ldap"]
   deliflow-artifactory-server:
     image: docker.bintray.io/jfrog/artifactory-oss:5.3.1
     labels:
