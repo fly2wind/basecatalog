@@ -10,4 +10,6 @@ services:
     environment:
       - HOST_NAME=${DELIFLOW_CAS_DOMIAN}
       - SERVER_NAME=https://${DELIFLOW_CAS_DOMIAN}:8443
-      - LDAP_URL=ldap://${DELIFLOW_LDAP_HOST}:389
+      - LDAP_URL=ldap://deliflow-gocd-server:389
+    external_links:
+      - ${DELIFLOW_LDAP_HOST}:deliflow-gocd-server
