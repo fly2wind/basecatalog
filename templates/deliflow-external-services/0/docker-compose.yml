@@ -57,7 +57,7 @@ services:
       - RABBITMQ_DEFAULT_PASS=${DELIFLOW_PASSWORD}
       - RABBITMQ_DEFAULT_VHOST=deliflow
     volumes_from:
-      - mongo-volume
+      - rabbitmq-volume
   rabbitmq-volume:
     image: busybox
     labels:
