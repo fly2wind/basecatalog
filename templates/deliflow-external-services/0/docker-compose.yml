@@ -12,7 +12,7 @@ services:
     volumes_from:
       - artifactory-data
   deliflow-sonarqube-server:
-    image: sonarqube:6.3.1
+    image: sonarqube:5.6.6
     labels:
       io.rancher.sidekicks: sonarqube-data
       io.ranhcer.container.hostname_override: container_name
@@ -22,7 +22,7 @@ services:
     environment:
       - SONARQUBE_JDBC_URL=jdbc:mysql://database/sonarqube?useUnicode=true&characterEncoding=utf8
       - SONARQUBE_JDBC_USERNAME=sonarqube
-      - SONARQUBE_JDBC_PASSWORD=${deliflow_password}
+      - SONARQUBE_JDBC_PASSWORD=${password}
     volumes_from:
       - sonarqube-data
     links:
@@ -33,10 +33,10 @@ services:
       io.rancher.sidekicks: mysql-data
       io.ranhcer.container.hostname_override: container_name
     environment:
-      - MYSQL_ROOT_PASSWORD=${deliflow_password}
+      - MYSQL_ROOT_PASSWORD=${password}
       - MYSQL_DATABASE=sonarqube
       - MYSQL_USER=sonarqube
-      - MYSQL_PASSWORD=${deliflow_password}
+      - MYSQL_PASSWORD=${password}
     volumes_from:
       - mysql-data
   artifactory-data:
@@ -44,17 +44,17 @@ services:
     labels:
       io.rancher.container.start_once: true
     volumes:
-      - ${deliflow_volume_work}/artifactory:/var/opt/jfrog/artifactory
-    volume_driver: ${deliflow_volume_driver}
+      - ${volume_work}/artifactory:/var/opt/jfrog/artifactory
+    volume_driver: ${volume_driver}
     command:
       - /bin/true
   sonarqube-data:
-    image: sonarqube:6.3.1
+    image: sonarqube:5.6.6
     labels:
       io.rancher.container.start_once: true
     volumes:
-      - ${deliflow_volume_work}/sonarqube:/opt/sonarqube
-    volume_driver: ${deliflow_volume_driver}
+      - ${volume_work}/sonarqube:/opt/sonarqube/data
+    volume_driver: ${volume_driver}
     command:
       - /bin/true
   mysql-data:
@@ -62,7 +62,7 @@ services:
     labels:
       io.rancher.container.start_once: true
     volumes:
-      - ${deliflow_volume_work}/mysql:/var/lib/mysql
-    volume_driver: ${deliflow_volume_driver}
+      - ${volume_work}/mysql:/var/lib/mysql
+    volume_driver: ${volume_driver}
     command:
       - /bin/true

@@ -3,19 +3,19 @@
   version: 1.0.0-rancher2
   description: "Deliflow External Services"
   questions:
-  - variable: deliflow_volume_driver
+  - variable: volume_driver
     label: "Volume Driver:"
     description: "Volume Driver"
     required: true
     default: "local"
     type: "string"
-  - variable: deliflow_volume_work
+  - variable: volume_work
     label: "Volume Path:"
     description: "Volume Path"
     required: true
     default: "/var/lib/deliflow"
     type: "string"
-  - variable: deliflow_password
+  - variable: password
     label: "Deliflow Password"
     description: "Deliflow Password"
     required: true
