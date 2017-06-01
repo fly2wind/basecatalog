@@ -5,19 +5,19 @@
   questions:
   - variable: deliflow_volume_driver
     label: "Volume Driver:"
-    description: "数据存储驱动"
+    description: "Volume Driver"
     required: true
     default: "local"
     type: "string"
   - variable: deliflow_volume_work
     label: "Volume Path:"
-    description: "数据存储路径"
+    description: "Volume Path"
     required: true
     default: "/var/lib/deliflow"
     type: "string"
   - variable: deliflow_password
     label: "Deliflow Password"
-    description: "默认密码"
+    description: "Deliflow Password"
     required: true
     default: "DeliFlow@123"
     type: password
