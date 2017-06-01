@@ -1,7 +1,7 @@
 version: '2'
 services:
   deliflow-cas-service:
-    image: itherz/cas
+    image: reg.dev.twleansw.com/leansw/cas-service:${docker_image_tag}
     labels:
       io.ranhcer.container.hostname_override: container_name
     ports:
@@ -15,7 +15,5 @@ services:
       - LDAP_BASEDN="dc=deliflow,dc=com"
       - LDAP_MANAGERDN="cn=admin,dc=deliflow,dc=com"
       - LDAP_MANAGERPASSWORD=deliflow
-      - LDAP_USESTARTTLS=false
-      - lLDAP_CONNECTTIMEOUT=3000
     external_links:
       - ${DELIFLOW_LDAP_HOST}:deliflow-gocd-server
