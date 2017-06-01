@@ -1,7 +1,7 @@
 version: '2'
 services:
   deliflow-cas-service:
-    image: reg.dev.twleansw.com/leansw/cas-service:${docker_image_tag}
+    image: itherz/cas
     labels:
       io.ranhcer.container.hostname_override: container_name
     ports:
