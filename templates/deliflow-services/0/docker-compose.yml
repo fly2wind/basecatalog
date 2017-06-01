@@ -9,5 +9,5 @@ services:
       - "9080:9080"
     environment:
       - HOST_NAME=${DELIFLOW_CAS_DOMIAN}
-      - SERVER_NAME=https://${DELIFLOW_DOMAIN}:8443
-      - LDAP_URL=ldap://${DELIFLOW_CAS_DOMIAN}:389
+      - SERVER_NAME=https://${DELIFLOW_CAS_DOMIAN}:8443
+      - LDAP_URL=ldap://${DELIFLOW_LDAP_HOST}:389
