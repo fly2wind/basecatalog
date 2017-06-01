@@ -3,18 +3,43 @@ services:
   deliflow-artifactory-server:
     image: docker.bintray.io/jfrog/artifactory-oss:5.3.1
     labels:
-      io.rancher.sidekicks: artifactory-data
+      io.rancher.sidekicks: artifactory-data,artifactory-volume
       io.ranhcer.container.hostname_override: container_name
     ports:
       - "8081:8081"
     environment:
-      - EXTRA_JAVA_OPTIONS=-Xmx4g
+      - DB_TYPE=mysql
+      - DB_HOST=database
+      - DB_USER=artifactory
+      - DB_PASSWORD=${password}
     volumes_from:
       - artifactory-data
+    links:
+      - artifactory-data:database
+  artifactory-data:
+    image: mysql:5.7
+    labels:
+      io.ranhcer.container.hostname_override: container_name
+    volumes:
+      - ${volume_work}/artifactory/mysql:/var/lib/mysql
+    volume_driver: ${volume_driver}
+    environment:
+      - MYSQL_ROOT_PASSWORD=${password}
+      - MYSQL_DATABASE=artifactory
+      - MYSQL_USER=artifactory
+      - MYSQL_PASSWORD=${password}
+  artifactory-volume:
+    image: busybox
+    labels:
+      io.rancher.container.start_once: true
+    volumes:
+      - ${volume_work}/artifactory/data:/var/opt/jfrog/artifactory
+    volume_driver: ${volume_driver}
+    entrypoint: ["chown", "-R", "1000:1000", "/var/opt/jfrog/artifactory"]
   deliflow-sonarqube-server:
     image: sonarqube:5.6.6
     labels:
-      io.rancher.sidekicks: sonarqube-data
+      io.rancher.sidekicks: sonarqube-data,sonarqube-volume
       io.ranhcer.container.hostname_override: container_name
     ports:
       - "9000:9000"
@@ -24,42 +49,26 @@ services:
       - SONARQUBE_JDBC_USERNAME=sonarqube
       - SONARQUBE_JDBC_PASSWORD=${password}
     volumes_from:
-      - sonarqube-data
+      - sonarqube-volume
     links:
-      - deliflow-mysql-server:database
-  deliflow-mysql-server:
+      - sonarqube-data:database
+  sonarqube-data:
     image: mysql:5.7
     labels:
-      io.rancher.sidekicks: mysql-data
       io.ranhcer.container.hostname_override: container_name
+    volumes:
+      - ${volume_work}/sonarqube/mysql:/var/lib/mysql
+    volume_driver: ${volume_driver}
     environment:
       - MYSQL_ROOT_PASSWORD=${password}
       - MYSQL_DATABASE=sonarqube
       - MYSQL_USER=sonarqube
       - MYSQL_PASSWORD=${password}
-    volumes_from:
-      - mysql-data
-  artifactory-data:
+  sonarqube-volume:
     image: busybox
     labels:
       io.rancher.container.start_once: true
     volumes:
-      - ${volume_work}/artifactory:/var/opt/jfrog/artifactory
-    volume_driver: ${volume_driver}
-    entrypoint: ["chown", "-R", "1000:1000", "/var/opt/jfrog/artifactory"]
-  sonarqube-data:
-    image: busybox
-    labels:
-      io.rancher.container.start_once: true
-    volumes:
-      - ${volume_work}/sonarqube:/opt/sonarqube/data
+      - ${volume_work}/sonarqube/data:/opt/sonarqube/data
     volume_driver: ${volume_driver}
     entrypoint: ["chown", "-R", "1000:1000", "/opt/sonarqube/data"]
-  mysql-data:
-    image: busybox
-    labels:
-      io.rancher.container.start_once: true
-    volumes:
-      - ${volume_work}/mysql:/var/lib/mysql
-    volume_driver: ${volume_driver}
-    entrypoint: ["chown", "-R", "1000:1000", "/var/lib/mysql"]
