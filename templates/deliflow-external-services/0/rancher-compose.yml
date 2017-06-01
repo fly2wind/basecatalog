@@ -15,9 +15,15 @@
     required: true
     default: "/var/lib/deliflow"
     type: "string"
-  - variable: password
+  - variable: "DELIFLOW_PASSWORD"
     label: "Deliflow Password"
     description: "Deliflow Password"
     required: true
     default: "DeliFlow@123"
     type: password
+  - variable: "DELIFLOW_AGENTKEY"
+    label: "Agent key"
+    description: "Key to use for auto registration agent"
+    required: true
+    default: "DeliFlow@123"
+    type: "password"

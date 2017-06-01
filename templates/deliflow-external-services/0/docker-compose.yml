@@ -11,7 +11,7 @@ services:
       - DB_TYPE=postgresql
       - DB_HOST=artifactory-data
       - DB_USER=artifactory
-      - DB_PASSWORD=${password}
+      - DB_PASSWORD=${DELIFLOW_PASSWORD}
     volumes_from:
       - artifactory-volume
     links:
@@ -28,7 +28,7 @@ services:
     environment:
       - POSTGRES_DB=artifactory
       - POSTGRES_USER=artifactory
-      - POSTGRES_PASSWORD=${password}
+      - POSTGRES_PASSWORD=${DELIFLOW_PASSWORD}
   artifactory-volume:
     image: busybox
     labels:
@@ -48,7 +48,7 @@ services:
     environment:
       - SONARQUBE_JDBC_URL=jdbc:postgresql://sonarqube-data:5432/sonarqube
       - SONARQUBE_JDBC_USERNAME=sonarqube
-      - SONARQUBE_JDBC_PASSWORD=${password}
+      - SONARQUBE_JDBC_PASSWORD=${DELIFLOW_PASSWORD}
     volumes_from:
       - sonarqube-volume
     links:
@@ -65,7 +65,7 @@ services:
     environment:
       - POSTGRES_DB=sonarqube
       - POSTGRES_USER=sonarqube
-      - POSTGRES_PASSWORD=${password}
+      - POSTGRES_PASSWORD=${DELIFLOW_PASSWORD}
   sonarqube-volume:
     image: busybox
     labels:
@@ -74,3 +74,41 @@ services:
       - ${volume_work}/sonarqube/data:/opt/sonarqube/data
     volume_driver: ${volume_driver}
     entrypoint: ["chown", "-R", "1000:1000", "/opt/sonarqube/data"]
+  deliflow-gocd-server:
+    image: webcenter/alpine-gocd-server:17.3.0-1
+    labels:
+      io.rancher.sidekicks: gocd-data,gocd-volume
+      io.ranhcer.container.hostname_override: container_name
+    ports:
+      - "8153:8153"
+      - "8154:8154"
+    environment:
+      - GOCD_CONFIG_agent-key=${DELIFLOW_AGENTKEY}
+      - GOCD_PLUGIN_script-executor=https://github.com/gocd-contrib/script-executor-task/releases/download/0.3/script-executor-0.3.0.jar
+      - GOCD_PLUGIN_docker-task=https://github.com/manojlds/gocd-docker/releases/download/0.1.27/docker-task-assembly-0.1.27.jar
+      - GOCD_PLUGIN_slack=https://github.com/Vincit/gocd-slack-task/releases/download/v1.3.1/gocd-slack-task-1.3.1.jar
+      - GOCD_PLUGIN_docker-pipline=https://github.com/Haufe-Lexware/gocd-plugins/releases/download/v1.0.0-beta/gocd-docker-pipeline-plugin-1.0.0.jar
+      - GOCD_PLUGIN_email-notifier=https://github.com/gocd-contrib/email-notifier/releases/download/v0.1/email-notifier-0.1.jar
+      - GOCD_PLUGIN_github-notifier=https://github.com/gocd-contrib/gocd-build-status-notifier/releases/download/1.3/github-pr-status-1.3.jar
+      - GOCD_PLUGIN_github-scm=https://github.com/ashwanthkumar/gocd-build-github-pull-requests/releases/download/v1.3.3/github-pr-poller-1.3.3.jar
+      - GOCD_PLUGIN_maven-repository=https://github.com/1and1/go-maven-poller/releases/download/v1.1.4/go-maven-poller.jar
+      - GOCD_PLUGIN_maven-task=https://github.com/ruckc/gocd-maven-plugin/releases/download/0.1.1/gocd-maven-plugin-0.1.1.jar
+      - GOCD_PLUGIN_s3-fetch=https://github.com/indix/gocd-s3-artifacts/releases/download/v2.0.2/s3fetch-assembly-2.0.2.jar
+      - GOCD_PLUGIN_s3-publish=https://github.com/indix/gocd-s3-artifacts/releases/download/v2.0.2/s3publish-assembly-2.0.2.jar
+      - GOCD_PLUGIN_nessus-scan=https://github.com/Haufe-Lexware/gocd-plugins/releases/download/v1.0.0-beta/gocd-nessus-scan-plugin-1.0.0.jar
+      - GOCD_PLUGIN_sonar=https://github.com/Haufe-Lexware/gocd-plugins/releases/download/v1.0.0-beta/gocd-sonar-qualitygates-plugin-1.0.0.jar
+      - GOCD_PLUGIN_gitlab-auth=https://github.com/gocd-contrib/gocd-oauth-login/releases/download/v2.3/gitlab-oauth-login-2.3.jar
+      - GOCD_PLUGIN_google-auth=https://github.com/gocd-contrib/gocd-oauth-login/releases/download/v2.3/google-oauth-login-2.3.jar
+      - GOCD_PLUGIN_github-auth=https://github.com/gocd-contrib/gocd-oauth-login/releases/download/v2.3/github-oauth-login-2.3.jar
+      - GOCD_PLUGIN_rancher-catalog=http://artifactory.dev.twleansw.com:8081/artifactory/default-repo/tw-leansw/plugins/rancher-catalog-1.0.3-gocd-plugins.zip
+      - SONARQUBE_JDBC_PASSWORD=${password}
+    volumes_from:
+      - gocd-volume
+  gocd-volume:
+    image: busybox
+    labels:
+      io.rancher.container.start_once: true
+    volumes:
+      - ${volume_work}/gocd/data:/data
+    volume_driver: ${volume_driver}
+    entrypoint: ["chown", "-R", "1000:1000", "/data"]
