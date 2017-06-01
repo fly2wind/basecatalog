@@ -11,5 +11,9 @@ services:
       - HOST_NAME=${DELIFLOW_CAS_DOMIAN}
       - SERVER_NAME=https://${DELIFLOW_CAS_DOMIAN}:8443
       - LDAP_URL=ldap://deliflow-gocd-server:389
+      - LDAP_ROOTDN="dc=deliflow,dc=com"
+      - LDAP_BASEDN="dc=deliflow,dc=com"
+      - LDAP_MANAGERDN="cn=admin,dc=deliflow,dc=com"
+      - LDAP_MANAGERPASSWORD=deliflow
     external_links:
       - ${DELIFLOW_LDAP_HOST}:deliflow-gocd-server
