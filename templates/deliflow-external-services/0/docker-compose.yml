@@ -23,6 +23,53 @@ services:
       - ${volume_work}/ldap/data:/var/lib/ldap
     volume_driver: ${volume_driver}
     entrypoint: ["chown", "-R", "1000:1000", "/var/lib/ldap"]
+  deliflow-mongo-server:
+    image: mongo:3.4
+    labels:
+      io.rancher.sidekicks: mongo-volume
+      io.ranhcer.container.hostname_override: container_name
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=deliflow
+      - MONGO_INITDB_ROOT_PASSWORD=${DELIFLOW_PASSWORD}
+      - MONGO_INITDB_DATABASE=deliflow
+    volumes_from:
+      - mongo-volume
+    command:
+      - --auth
+  mongo-volume:
+    image: busybox
+    labels:
+      io.rancher.container.start_once: true
+    net: none
+    volumes:
+      - ${volume_work}/mongo:/data/db
+    volume_driver: ${volume_driver}
+    entrypoint: ["chown", "-R", "1000:1000", "/data/db"]
+
+  deliflow-rabbitmq-server:
+    image: rabbitmq:3.6
+    labels:
+      io.rancher.sidekicks: rabbitmq-volume
+      io.ranhcer.container.hostname_override: container_name
+    ports:
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=deliflow
+      - RABBITMQ_DEFAULT_PASS=${DELIFLOW_PASSWORD}
+      - RABBITMQ_DEFAULT_VHOST=deliflow
+    volumes_from:
+      - mongo-volume
+  rabbitmq-volume:
+    image: busybox
+    labels:
+      io.rancher.container.start_once: true
+    net: none
+    volumes:
+      - ${volume_work}/rabbitmq:/var/lib/rabbitmq
+    volume_driver: ${volume_driver}
+    entrypoint: ["chown", "-R", "1000:1000", "/var/lib/rabbitmq"]
   deliflow-artifactory-server:
     image: docker.bintray.io/jfrog/artifactory-oss:5.3.1
     labels:
