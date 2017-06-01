@@ -13,9 +13,11 @@ services:
       - DB_USER=artifactory
       - DB_PASSWORD=${password}
     volumes_from:
-      - artifactory-data
+      - artifactory-volume
     links:
       - artifactory-data:database
+    depends_on:
+      - artifactory-data
   artifactory-data:
     image: postgres:9.4
     labels:
@@ -51,6 +53,8 @@ services:
       - sonarqube-volume
     links:
       - sonarqube-data:database
+    depends_on:
+      - sonarqube-data
   sonarqube-data:
     image: postgres:9.4
     labels:
