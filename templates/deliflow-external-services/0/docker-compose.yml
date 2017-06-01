@@ -8,7 +8,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - DB_TYPE=mysql
+      - DB_TYPE=postgresql
       - DB_HOST=database
       - DB_USER=artifactory
       - DB_PASSWORD=${password}
@@ -17,17 +17,16 @@ services:
     links:
       - artifactory-data:database
   artifactory-data:
-    image: mysql:5.7
+    image: postgres:9.6
     labels:
       io.ranhcer.container.hostname_override: container_name
     volumes:
-      - ${volume_work}/artifactory/mysql:/var/lib/mysql
+      - ${volume_work}/artifactory/postgresql:/var/lib/postgresql/data
     volume_driver: ${volume_driver}
     environment:
-      - MYSQL_ROOT_PASSWORD=${password}
-      - MYSQL_DATABASE=artifactory
-      - MYSQL_USER=artifactory
-      - MYSQL_PASSWORD=${password}
+      - POSTGRES_DB=artifactory
+      - POSTGRES_USER=artifactory
+      - POSTGRES_PASSWORD=${password}
   artifactory-volume:
     image: busybox
     labels:
@@ -45,7 +44,7 @@ services:
       - "9000:9000"
       - "9092:9092"
     environment:
-      - SONARQUBE_JDBC_URL=jdbc:mysql://database/sonarqube?useUnicode=true&characterEncoding=utf8
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://database/sonarqube
       - SONARQUBE_JDBC_USERNAME=sonarqube
       - SONARQUBE_JDBC_PASSWORD=${password}
     volumes_from:
@@ -53,17 +52,16 @@ services:
     links:
       - sonarqube-data:database
   sonarqube-data:
-    image: mysql:5.7
+    image: postgres:9.6
     labels:
       io.ranhcer.container.hostname_override: container_name
     volumes:
-      - ${volume_work}/sonarqube/mysql:/var/lib/mysql
+      - ${volume_work}/sonarqube/postgresql:/var/lib/postgresql/data
     volume_driver: ${volume_driver}
     environment:
-      - MYSQL_ROOT_PASSWORD=${password}
-      - MYSQL_DATABASE=sonarqube
-      - MYSQL_USER=sonarqube
-      - MYSQL_PASSWORD=${password}
+      - POSTGRES_DB=sonarqube
+      - POSTGRES_USER=sonarqube
+      - POSTGRES_PASSWORD=${password}
   sonarqube-volume:
     image: busybox
     labels:
