@@ -40,29 +40,26 @@ services:
     volumes_from:
       - mysql-data
   artifactory-data:
-    image: docker.bintray.io/jfrog/artifactory-oss:5.3.1
+    image: busybox
     labels:
       io.rancher.container.start_once: true
     volumes:
       - ${volume_work}/artifactory:/var/opt/jfrog/artifactory
     volume_driver: ${volume_driver}
-    command:
-      - /bin/true
+    entrypoint: ["chown", "-R", "1000:1000", "/var/opt/jfrog/artifactory"]
   sonarqube-data:
-    image: sonarqube:5.6.6
+    image: busybox
     labels:
       io.rancher.container.start_once: true
     volumes:
       - ${volume_work}/sonarqube:/opt/sonarqube/data
     volume_driver: ${volume_driver}
-    command:
-      - /bin/true
+    entrypoint: ["chown", "-R", "1000:1000", "/opt/sonarqube/data"]
   mysql-data:
-    image: mysql:5.7
+    image: busybox
     labels:
       io.rancher.container.start_once: true
     volumes:
       - ${volume_work}/mysql:/var/lib/mysql
     volume_driver: ${volume_driver}
-    command:
-      - /bin/true
+    entrypoint: ["chown", "-R", "1000:1000", "/var/lib/mysql"]
