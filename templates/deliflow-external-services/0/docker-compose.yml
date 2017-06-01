@@ -77,7 +77,7 @@ services:
   deliflow-gocd-server:
     image: webcenter/alpine-gocd-server:17.3.0-1
     labels:
-      io.rancher.sidekicks: gocd-data,gocd-volume
+      io.rancher.sidekicks: gocd-volume
       io.ranhcer.container.hostname_override: container_name
     ports:
       - "8153:8153"
