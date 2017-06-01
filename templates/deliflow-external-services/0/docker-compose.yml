@@ -18,7 +18,7 @@ services:
     image: busybox
     labels:
       io.rancher.container.start_once: true
-    net: none
+    network_mode: none
     volumes:
       - ${volume_work}/ldap/data:/var/lib/ldap
     volume_driver: ${volume_driver}
@@ -42,7 +42,7 @@ services:
     image: busybox
     labels:
       io.rancher.container.start_once: true
-    net: none
+    network_mode: none
     volumes:
       - ${volume_work}/mongo:/data/db
     volume_driver: ${volume_driver}
@@ -65,7 +65,7 @@ services:
     image: busybox
     labels:
       io.rancher.container.start_once: true
-    net: none
+    network_mode: none
     volumes:
       - ${volume_work}/rabbitmq:/var/lib/rabbitmq
     volume_driver: ${volume_driver}
@@ -103,7 +103,7 @@ services:
     image: busybox
     labels:
       io.rancher.container.start_once: true
-    net: none
+    network_mode: none
     volumes:
       - ${volume_work}/artifactory/data:/var/opt/jfrog/artifactory
     volume_driver: ${volume_driver}
@@ -141,7 +141,7 @@ services:
     image: busybox
     labels:
       io.rancher.container.start_once: true
-    net: none
+    network_mode: none
     volumes:
       - ${volume_work}/sonarqube/data:/opt/sonarqube/data
     volume_driver: ${volume_driver}
@@ -180,7 +180,7 @@ services:
     image: busybox
     labels:
       io.rancher.container.start_once: true
-    net: none
+    network_mode: none
     volumes:
       - ${volume_work}/gocd/data:/data
     volume_driver: ${volume_driver}
