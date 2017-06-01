@@ -16,5 +16,6 @@ services:
       - LDAP_MANAGERDN="cn=admin,dc=deliflow,dc=com"
       - LDAP_MANAGERPASSWORD=deliflow
       - LDAP_USESTARTTLS=false
+      - lLDAP_CONNECTTIMEOUT=3000
     external_links:
       - ${DELIFLOW_LDAP_HOST}:deliflow-gocd-server
